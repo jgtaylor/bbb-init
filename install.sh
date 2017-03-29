@@ -7,15 +7,19 @@
 # set default cape universala
 
 function wirelessFix() {
-# SRC: https://github.com/pvaret/rtl8192cu-fixes
-# get the kernel version via uname -r
-version=$(uname -r)
-apt-get install git linux-headers-${version} build-essential dkms
-git clone https://github.com/pvaret/rtl8192cu-fixes.git
-dkms add ./rtl8192cu-fixes
-dkms install 8192cu/1.10
-depmod -a
-cp ./rtl8192cu-fixes/blacklist-native-rtl8192.conf /etc/modprobe.d/
-cp ./rtl8192cu-fixes/8192cu-disable-power-management.conf /etc/modprobe.d/
+	# SRC: https://github.com/pvaret/rtl8192cu-fixes
+	# get the kernel version via uname -r
+	version=$(uname -r)
+	apt-get install git linux-headers-${version} build-essential dkms
+	git clone https://github.com/pvaret/rtl8192cu-fixes.git
+	dkms add ./rtl8192cu-fixes
+	dkms install 8192cu/1.10
+	depmod -a
+	cp ./rtl8192cu-fixes/blacklist-native-rtl8192.conf /etc/modprobe.d/
+	cp ./rtl8192cu-fixes/8192cu-disable-power-management.conf /etc/modprobe.d/
 }
 
+function installNVM() {
+	wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash
+	nvm install v7.7.4
+}
